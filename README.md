@@ -2,8 +2,6 @@
 
 A comprehensive utility for file recovery, storage cleanup, and data loss simulation. This tool helps users manage their file systems effectively with three key functionalities.
 
-
-
 ## ✨ Features
 
 1. **File Restoration**  
@@ -49,18 +47,15 @@ Simulation moves files but doesn't permanently delete them
 
 Requires Python 3.8+ and Streamlit
 
-📜 License
-MIT License - See LICENSE for details
+#SCREENSHOTS
 
-🤝 Contributing
-Pull requests welcome! Please:
+![Image](https://github.com/user-attachments/assets/0d695484-e666-48c2-ae0b-2f3ebd60fd49)
 
-Fork the repository
+![Image](https://github.com/user-attachments/assets/4ae9cb36-1db4-42ad-a29d-72e7648e7cdd)
 
-Create your feature branch
+![Image](https://github.com/user-attachments/assets/3c83e4cf-e14d-40fb-b7b9-9c16a8d2cb8c)
 
-Commit your changes
+![Image](https://github.com/user-attachments/assets/6ebcb8c0-e1ad-45d4-9289-5e6c3f707545)
 
-Push to the branch
 
-Open a pull request
+
