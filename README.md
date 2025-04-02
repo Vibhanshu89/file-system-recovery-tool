@@ -2,7 +2,7 @@
 
 A comprehensive utility for file recovery, storage cleanup, and data loss simulation. This tool helps users manage their file systems effectively with three key functionalities.
 
-![App Screenshot](screenshot.png) *<!-- Consider adding an actual screenshot later -->*
+
 
 ## ✨ Features
 
@@ -23,7 +23,7 @@ A comprehensive utility for file recovery, storage cleanup, and data loss simula
 ## 🛠️ Installation
 
 1. Clone the repository:
-   git clone https://github.com/yourusername/file-recovery-tool.git
+   git clone https://github.com/Vibhanshu89/file-system-recovery-tool
 
 
 2. Install dependencies:
