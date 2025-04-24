@@ -1,22 +1,39 @@
+import time
 import os
+import shutil
+from filesystem import FileSystem, Directory
 
-def clean_storage(target_folder):
-    """
-    Deletes temporary files (.tmp) and backup files (starting with 'backup_') from the target folder.
-    """
-    if not os.path.exists(target_folder):
-        return "❌ Directory does not exist."
+class OptimizationManager:
+    def __init__(self, filesystem: FileSystem):
+        self.filesystem = filesystem
 
-    removed_files = []
-    for file in os.listdir(target_folder):
-        if file.endswith(".tmp") or file.startswith("backup_"):
-            file_path = os.path.join(target_folder, file)
-            try:
-                os.remove(file_path)
-                removed_files.append(file)
-            except Exception as e:
-                return f"⚠️ Could not remove {file}: {e}"
-    
-    if removed_files:
-        return f"✅ Removed: {', '.join(removed_files)}"
-    return "ℹ️ No unnecessary files found."
+    def optimize(self) -> dict:
+        start_time = time.time()
+        old_fragmentation = self.filesystem.fragmentation_index
+
+        # Simulate defragmentation by reorganizing files
+        for _, directory in self.filesystem.get_all_directories():
+            for file_name, file in list(directory.files.items()):
+                if not file.is_deleted:
+                    # Move file to ensure contiguous space (simplified)
+                    new_path = os.path.join(directory.path, f"temp_{file_name}")
+                    shutil.move(file.path, new_path)
+                    shutil.move(new_path, file.path)
+
+        # Clean up deleted files
+        for _, directory in self.filesystem.get_all_directories():
+            files_to_remove = [name for name, file in directory.files.items() if file.is_deleted]
+            for name in files_to_remove:
+                if os.path.exists(os.path.join(directory.path, name)):
+                    os.remove(os.path.join(directory.path, name))
+                del directory.files[name]
+            directory._scan()  # Rescan to update file list
+
+        self.filesystem.fragmentation_index = max(0, self.filesystem.fragmentation_index - 10)
+        self.filesystem.free_space = shutil.disk_usage(self.filesystem.base_path).free
+        optimization_time = time.time() - start_time
+        return {
+            "optimization_time": optimization_time,
+            "old_fragmentation": old_fragmentation,
+            "new_fragmentation": self.filesystem.fragmentation_index
+        }
