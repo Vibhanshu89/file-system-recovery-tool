@@ -1,61 +1,37 @@
-# 🛠️ File System Recovery Tool
+File System Recovery and Optimization Tool
+Overview
+This project is a Python-based tool for managing, recovering, and optimizing a real-time file system. It interacts with the actual file system of your computer using Streamlit for a user interface and modular functionality for file operations, directory management, recovery, crash simulation, and optimization.
+Features
 
-A comprehensive utility for file recovery, storage cleanup, and data loss simulation. This tool helps users manage their file systems effectively with three key functionalities.
+File Operations: Create, read, and delete files on the real file system.
+Directory Operations: Create directories and navigate the real file system.
+Recovery: Backup and restore the real file system from simulated crashes.
+Crash Simulation: Simulate disk crashes by corrupting real files.
+Optimization: Defragment and clean up the real file system.
 
-## ✨ Features
+Installation
 
-1. **File Restoration**  
-   - Recovers deleted files from a special "Deleted_Files" directory
-   - Preserves original file names and structure
-
-2. **Storage Cleanup**  
-   - Automatically removes temporary (.tmp) files
-   - Cleans up backup files (prefixed with 'backup_')
-   - Frees up valuable disk space
-
-3. **Data Loss Simulation**  
-   - Safe environment to test recovery procedures
-   - Moves files to "Deleted_Files" without permanent deletion
-   - Perfect for disaster recovery drills
-
-## 🛠️ Installation
-
-1. Clone the repository:
-   git clone https://github.com/Vibhanshu89/file-system-recovery-tool
+Clone the repository or download the files.
+Install the required dependencies:pip install -r requirements.txt
 
 
-2. Install dependencies:
-pip install -r requirements.txt
+Run the Streamlit app:streamlit run app.py
 
 
-🚀 Usage
-Run the application with:
 
-streamlit run app.py
-Interface Guide:
-Restore Lost Files: Enter a folder path to recover deleted files
+Usage
 
-Clean Up Storage: Specify directory to remove temporary files
+Enter a valid base directory path (or use the default current directory) when starting the app.
+Access the tool in your browser (typically at http://localhost:8501).
+Use the sidebar to navigate directories and view system status.
+Explore the tabs for different operations (File Operations, Directory Operations, Recovery, Optimization).
+Note: This tool modifies the real file system; use with caution and backup important data.
 
-Simulate Data Loss: Test recovery workflow by simulating file deletion
+Modules
 
-
-⚠️ Important Notes
-Always back up important files before using cleanup features
-
-Simulation moves files but doesn't permanently delete them
-
-Requires Python 3.8+ and Streamlit
-
-#SCREENSHOTS
-
-![Image](https://github.com/user-attachments/assets/0d695484-e666-48c2-ae0b-2f3ebd60fd49)
-
-![Image](https://github.com/user-attachments/assets/4ae9cb36-1db4-42ad-a29d-72e7648e7cdd)
-
-![Image](https://github.com/user-attachments/assets/3c83e4cf-e14d-40fb-b7b9-9c16a8d2cb8c)
-
-![Image](https://github.com/user-attachments/assets/6ebcb8c0-e1ad-45d4-9289-5e6c3f707545)
-
-
+app.py: Main application with Streamlit UI and core file system logic.
+cleanup.py: Optimization and cleanup functionality.
+crash_sim.py: Crash simulation logic.
+restore.py: Recovery and backup operations.
+requirements.txt: Lists required Python packages.
 
