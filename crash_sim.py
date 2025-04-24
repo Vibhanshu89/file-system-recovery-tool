@@ -1,21 +1,26 @@
+from typing import List
+import random
 import os
-import shutil
-import streamlit as st
+from filesystem import FileSystem, Directory
 
-def trigger_disk_failure(target_folder):
-    """
-    Simulates a data loss event by moving all files to 'Deleted_Files' inside the target folder.
-    """
-    deleted_folder = os.path.join(target_folder, "Deleted_Files")
+class CrashSimulator:
+    def __init__(self, filesystem: FileSystem):
+        self.filesystem = filesystem
 
-    # Create 'Deleted_Files' folder if it doesn't exist
-    if not os.path.exists(deleted_folder):
-        os.makedirs(deleted_folder)
-
-    # Move files to Deleted_Files
-    for file in os.listdir(target_folder):
-        file_path = os.path.join(target_folder, file)
-        if os.path.isfile(file_path):  # Ensure it's a file
-            shutil.move(file_path, os.path.join(deleted_folder, file))
-    
-    st.success(f"✅ Simulated Data Loss! All files moved to: {deleted_folder}")
+    def simulate_crash(self) -> List[str]:
+        corruption_chance = 0.3
+        corrupted_files = []
+        for dir_path, directory in self.filesystem.get_all_directories():
+            for file_name, file in list(directory.files.items()):
+                if random.random() < corruption_chance and not file.is_deleted:
+                    file_path = os.path.join(directory.path, file_name)
+                    try:
+                        with open(file_path, 'a', encoding='utf-8') as f:
+                            f.write(" [CORRUPTED_DATA]")
+                        with open(file_path, 'r', encoding='utf-8') as f:
+                            file.update_content(f.read())
+                        corrupted_files.append(os.path.join(dir_path, file_name) if dir_path else file_name)
+                    except (PermissionError, IOError) as e:
+                        print(f"Error corrupting {file_path}: {e}")
+                        continue
+        return corrupted_files
